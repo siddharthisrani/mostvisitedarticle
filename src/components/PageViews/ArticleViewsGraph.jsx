@@ -50,7 +50,9 @@ const ArticleViewsGraph = ({ articles }) => {
 
                 setLoading(false);
             } catch (error) {
-                setLoading(true);
+                // Handle error properly by setting loading to false and clearing viewData
+                setLoading(false);
+                setViewData({});
                 return;
             }
         };
@@ -61,7 +63,13 @@ const ArticleViewsGraph = ({ articles }) => {
     return (
         <div className='graph w-full flex flex-col items-center'>
             <h2 className='font-bold text-white text-xl self-start'>Views for Multiple Articles</h2>
-            {loading ? <Loading /> : viewData.labels ? <Line data={viewData} /> : <p>No data available.</p>}
+            {loading ? (
+                <Loading />
+            ) : viewData.labels ? (
+                <Line data={viewData} />
+            ) : (
+                <p className='text-white text-2xl absolute top-1/2 right-1/4 transform -translate-x-1/2 -translate-y-1/2'>No data available.</p>
+            )}
         </div>
     );
 };
