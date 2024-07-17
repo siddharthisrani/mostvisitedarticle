@@ -50,7 +50,7 @@ const ArticleViewsGraph = ({ articles }) => {
 
                 setLoading(false);
             } catch (error) {
-                // Handle error properly by setting loading to false and clearing viewData
+                // Handle error properly by setting false to loading  and clearing viewData
                 setLoading(false);
                 setViewData({});
             }
