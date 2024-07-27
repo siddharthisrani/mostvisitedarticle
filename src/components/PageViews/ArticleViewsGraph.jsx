@@ -8,11 +8,12 @@ Chart.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Too
 
 const ArticleViewsGraph = ({ articles }) => {
     const [viewData, setViewData] = useState({});
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchAllViews = async () => {
             try {
+                setLoading(true); // Set loading to true when API request is made
                 const allDataPromises = articles.map(async (article) => {
                     const response = await fetchPageViewsCount(article);
                     const views = response.items;
@@ -47,12 +48,11 @@ const ArticleViewsGraph = ({ articles }) => {
                     labels: combinedDates,
                     datasets,
                 });
-
-                setLoading(false);
             } catch (error) {
-                // Handle error properly by setting false to loading  and clearing viewData
-                setLoading(false);
+                // Handled error properly by setting loading to false and clearing viewData
                 setViewData({});
+            } finally {
+                setLoading(false); // Ensuring loading is set to false in finally block
             }
         };
 
